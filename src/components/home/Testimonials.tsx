@@ -20,7 +20,7 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Sarah Johnson",
+    name: "Abdul Rahman",
     role: "Chief Election Officer",
     company: "Global University",
     image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -29,7 +29,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 2,
-    name: "Michael Chen",
+    name: "Michael Nafeh",
     role: "Board Secretary",
     company: "Pacific Trust",
     image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -38,7 +38,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 3,
-    name: "Aisha Patel",
+    name: "Waris Patel",
     role: "Director of Operations",
     company: "Community Foundation",
     image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
@@ -47,7 +47,7 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 4,
-    name: "Robert Martinez",
+    name: "lowkey Martinez",
     role: "IT Security Manager",
     company: "Enterprise Solutions",
     image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
