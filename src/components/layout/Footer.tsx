@@ -119,7 +119,7 @@ const Footer: React.FC = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-gray-500 mb-4 md:mb-0">
-            &copy; {new Date().getFullYear()} Votera. All rights reserved.
+            &copy; {new Date().getFullYear()} Made by AbdulRehman.
           </p>
           <div className="flex space-x-6">
             <Link to="/privacy" className="text-xs text-gray-500 hover:text-[#0CF2A0] transition-colors">
