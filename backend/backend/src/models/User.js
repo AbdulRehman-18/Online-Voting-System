@@ -8,7 +8,7 @@ const User = sequelize.define('User', {
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
-  name: {
+  fullName: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -20,6 +20,11 @@ const User = sequelize.define('User', {
       isEmail: true
     }
   },
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
   password: {
     type: DataTypes.STRING,
     allowNull: false
@@ -29,9 +34,12 @@ const User = sequelize.define('User', {
     allowNull: false,
     defaultValue: 'voter'
   },
-  avatar: {
-    type: DataTypes.STRING,
-    allowNull: true
+  lastLogin: {
+    type: DataTypes.DATE
+  },
+  status: {
+    type: DataTypes.ENUM('active', 'inactive', 'suspended'),
+    defaultValue: 'active'
   }
 }, {
   hooks: {
@@ -48,8 +56,91 @@ const User = sequelize.define('User', {
   }
 });
 
-User.prototype.validatePassword = async function(password) {
-  return bcrypt.compare(password, this.password);
-};
+// Additional models for role-specific details
+const AdminDetails = sequelize.define('AdminDetails', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
+  employeeId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  department: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
 
-export default User;
+const CandidateDetails = sequelize.define('CandidateDetails', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
+  partyAffiliation: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  electionId: {
+    type: DataTypes.UUID,
+    allowNull: false
+  }
+});
+
+const VoterDetails = sequelize.define('VoterDetails', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
+  voterId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  address: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
+// Establish relationships
+User.hasOne(AdminDetails);
+AdminDetails.belongsTo(User);
+
+User.hasOne(CandidateDetails);
+CandidateDetails.belongsTo(User);
+
+User.hasOne(VoterDetails);
+VoterDetails.belongsTo(User);
+
+// Session model for tracking user sessions
+const Session = sequelize.define('Session', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: false
+  },
+  token: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  expiresAt: {
+    type: DataTypes.DATE,
+    allowNull: false
+  }
+});
+
+User.hasMany(Session);
+Session.belongsTo(User);
+
+export { User, AdminDetails, CandidateDetails, VoterDetails, Session };
+
+export default User
